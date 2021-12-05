@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Menu, MenuItem } from "@material-ui/core";
 import Card from "./Card";
 import color from "./colors";
@@ -21,8 +21,7 @@ const TodoList = ({
   deleteCallback,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { gray, black, red, orange, green, blue, deepBlue, purple, pink } =
-    color;
+  const { gray } = color;
 
   const currentTime = new Date().toLocaleString("en-GB", {
     day: "numeric",
