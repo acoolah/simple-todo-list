@@ -48,7 +48,12 @@ const Card = ({
   };
 
   const handleDeleteCard = (e) => {
-    deleteCallback(cardId);
+    const item = e.currentTarget.parentNode;
+    item.style.animation = "onDelete 0.5s forwards ease";
+
+    setTimeout(function () {
+      deleteCallback(cardId);
+    }, 300);
   };
 
   return (

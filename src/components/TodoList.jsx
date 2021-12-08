@@ -1,5 +1,11 @@
-import React, { useState } from "react";
-import { Menu, MenuItem } from "@material-ui/core";
+import React, { useState, useRef } from "react";
+import {
+  Menu,
+  MenuItem,
+  Dialog,
+  DialogActions,
+  DialogContent,
+} from "@material-ui/core";
 import Card from "./Card";
 import color from "./colors";
 
@@ -21,6 +27,9 @@ const TodoList = ({
   deleteCallback,
 }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = React.useState(false);
+  const titleInput = useRef();
+  const descInput = useRef();
   const { gray } = color;
 
   const currentTime = new Date().toLocaleString("en-GB", {
@@ -31,22 +40,14 @@ const TodoList = ({
   });
 
   const handleAddTodo = (e) => {
-    const id = generateId();
-
-    updateCallback({
-      id: id,
-      title: "My brand new card",
-      description: "Click on me to edit",
-      color: gray,
-      time: currentTime,
-    });
+    setOpen(true);
   };
 
   const handleOpenMenu = (e) => {
     setAnchorEl(e.currentTarget);
   };
 
-  const handleClose = (e) => {
+  const handleCloseMenu = (e) => {
     switch (e.currentTarget.getAttribute("data-action")) {
       case "CLEAR":
         clearCallback();
@@ -59,6 +60,32 @@ const TodoList = ({
     setAnchorEl(null);
   };
 
+  const handleCloseModal = (e) => {
+    setOpen(false);
+  };
+
+  const addCard = (e) => {
+    let title = titleInput.current.value;
+    let description = descInput.current.value;
+
+    title = title.split(" ").join("").length ? title : "My unknown card";
+    description = description.split(" ").join("").length
+      ? description
+      : "Without any description";
+
+    const id = generateId();
+
+    updateCallback({
+      id: id,
+      title: title,
+      description: description,
+      color: gray,
+      time: currentTime,
+    });
+
+    setOpen(false);
+  };
+
   return (
     <div className="todo__container">
       <div className="todo__header header">
@@ -69,9 +96,9 @@ const TodoList = ({
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
-          onClose={handleClose}
+          onClose={handleCloseMenu}
         >
-          <MenuItem data-action="CLEAR" onClick={handleClose}>
+          <MenuItem data-action="CLEAR" onClick={handleCloseMenu}>
             Clear all
           </MenuItem>
         </Menu>
@@ -92,6 +119,34 @@ const TodoList = ({
           );
         })}
         <button className="todo__add" onClick={handleAddTodo}></button>
+        <Dialog
+          open={open}
+          onClose={handleCloseModal}
+          aria-labelledby="form-dialog-title"
+          className="modal"
+        >
+          <span className="modal__title">Create new card</span>
+          <DialogContent>
+            <input
+              ref={titleInput}
+              className="modal__input"
+              placeholder="Title"
+            ></input>
+            <input
+              ref={descInput}
+              className="modal__input"
+              placeholder="Description"
+            ></input>
+          </DialogContent>
+          <DialogActions>
+            <button className="modal__close mbutton" onClick={handleCloseModal}>
+              Close
+            </button>
+            <button className="modal__create mbutton" onClick={addCard}>
+              Create
+            </button>
+          </DialogActions>
+        </Dialog>
       </div>
     </div>
   );
