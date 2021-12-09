@@ -83,6 +83,7 @@ const Card = ({
             ref={cardColorButton}
           ></button>
         </LightTooltip>
+        {/* turn this into new component asap */}
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}

@@ -119,6 +119,7 @@ const TodoList = ({
           );
         })}
         <button className="todo__add" onClick={handleAddTodo}></button>
+        {/* turn this into new component asap */}
         <Dialog
           open={open}
           onClose={handleCloseModal}
