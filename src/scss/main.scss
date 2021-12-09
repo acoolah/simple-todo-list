@@ -54,6 +54,9 @@ body {
         }
       }
       .todo__container {
+        > * {
+          box-shadow: 0 10px 30px 10px rgba(174, 174, 174, 0.2);
+        }
         > *:not(:last-child) {
           margin: 0 0 10px 0;
         }
