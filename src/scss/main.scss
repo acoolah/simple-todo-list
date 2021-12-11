@@ -29,7 +29,7 @@ $pink: #ff76d9;
   align-items: center;
 }
 
-// Magic is here
+// Magic
 html,
 body {
   display: flex;
@@ -76,6 +76,17 @@ body {
           opacity: 0;
           animation: onLoad 0.5s 1 forwards ease;
           animation-delay: 250ms;
+          @media (max-width: 451px) {
+            & {
+              width: 380px;
+            }
+          }
+          @media (max-width: 376px) {
+            & {
+              width: 100vw;
+              border-radius: 0;
+            }
+          }
           .header__menu {
             height: 30px;
             width: 30px;
@@ -94,6 +105,7 @@ body {
           @extend %flexCenterCenter;
           flex-direction: column;
           min-height: 100px;
+          height: fit-content;
           opacity: 0;
           width: 420px;
           padding: 10px;
@@ -104,13 +116,24 @@ body {
           > *:not(:last-child) {
             margin: 0 0 10px 0;
           }
+          @media (max-width: 451px) {
+            & {
+              width: 380px;
+            }
+          }
+          @media (max-width: 376px) {
+            & {
+              width: 100vw;
+              border-radius: 0;
+            }
+          }
           .todo__add {
             height: 26px;
             width: 100%;
             background: url(../img/add.svg) no-repeat center;
             background-color: transparent;
             border-radius: 6px;
-            transition: all 0.2s ease 0s;
+            transition: background 0.2s ease 0s;
             &:nth-child(1) {
               height: 80px;
             }
@@ -132,7 +155,7 @@ body {
       justify-content: space-between;
       min-height: 100px;
       height: fit-content;
-      width: 400px;
+      width: 100%;
       padding: 10px;
       border-radius: 8px;
       background-color: $cardBg;
@@ -173,11 +196,12 @@ body {
         align-items: flex-start;
         height: 100%;
         width: 100%;
+        cursor: default;
         > *:not(:last-child) {
-          margin: 16px 0 8px 0;
+          margin: 8px 0 8px 0;
         }
         > *:last-child {
-          margin: 0 0 10px 0;
+          margin: 0 0 5px 0;
         }
         .card__title {
           font-weight: 800;
@@ -196,9 +220,14 @@ body {
         width: 100%;
         .footer__time {
           position: relative;
-          font-weight: 800;
+          font-weight: 400;
           font-size: 12px;
           z-index: 10;
+          color: rgb(190, 190, 190);
+          transition: all 0.2s ease 0s;
+          &:hover {
+            cursor: pointer;
+          }
         }
         .footer__color {
           z-index: 10;
@@ -221,10 +250,12 @@ body {
       }
     }
     .card__container:hover {
-      cursor: pointer;
       color: #fff;
       .card__color {
         height: 100%;
+      }
+      .footer__time {
+        color: #fff;
       }
       .footer__color {
         opacity: 1;

@@ -96,8 +96,7 @@ const TodoList = ({
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
-          onClose={handleCloseMenu}
-        >
+          onClose={handleCloseMenu}>
           <MenuItem data-action="CLEAR" onClick={handleCloseMenu}>
             Clear all
           </MenuItem>
@@ -119,25 +118,21 @@ const TodoList = ({
           );
         })}
         <button className="todo__add" onClick={handleAddTodo}></button>
-        {/* turn this into new component asap */}
         <Dialog
           open={open}
           onClose={handleCloseModal}
           aria-labelledby="form-dialog-title"
-          className="modal"
-        >
+          className="modal">
           <span className="modal__title">Create new card</span>
           <DialogContent>
             <input
               ref={titleInput}
               className="modal__input"
-              placeholder="Title"
-            ></input>
+              placeholder="Title"></input>
             <input
               ref={descInput}
               className="modal__input"
-              placeholder="Description"
-            ></input>
+              placeholder="Description"></input>
           </DialogContent>
           <DialogActions>
             <button className="modal__close mbutton" onClick={handleCloseModal}>

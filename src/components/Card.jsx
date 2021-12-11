@@ -8,6 +8,7 @@ const LightTooltip = withStyles((theme) => ({
     color: "rgba(0, 0, 0, 0.87)",
     boxShadow: "0 6px 10px 0 rgba(0, 0, 0, 0.15)",
     fontSize: 12,
+    fontFamily: "inherit",
   },
 }))(Tooltip);
 
@@ -62,35 +63,36 @@ const Card = ({
       <div
         className="card__color"
         style={{ backgroundColor: `${color}` }}
-        ref={cardColorRef}
-      ></div>
+        ref={cardColorRef}></div>
       <div className="card__body">
         <h4 className="card__title">{title}</h4>
         <span className="card__description">{description}</span>
       </div>
       <div className="card__footer footer">
-        <h5 className="footer__time">{time}</h5>
+        <LightTooltip
+          title={"This card was created by you on " + time}
+          placement="bottom"
+          enterDelay={800}
+          TransitionComponent={Zoom}>
+          <h5 className="footer__time">{time}</h5>
+        </LightTooltip>
         <LightTooltip
           title="Change color"
           placement="left"
           enterDelay={800}
-          TransitionComponent={Zoom}
-        >
+          TransitionComponent={Zoom}>
           <button
             className="footer__color"
             style={{ backgroundColor: `${color}` }}
             onClick={handleChangeColor}
-            ref={cardColorButton}
-          ></button>
+            ref={cardColorButton}></button>
         </LightTooltip>
-        {/* turn this into new component asap */}
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
+          onClose={handleClose}>
           <MenuItem onClick={handleClose}>
             <span data-color="0" className="color gray"></span>
           </MenuItem>
