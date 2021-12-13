@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
-import { Tooltip, Zoom, withStyles, Menu, MenuItem } from "@material-ui/core";
+import { Tooltip, Zoom, withStyles } from "@material-ui/core";
+import ColorMenu from "./ColorMenu";
 import colors from "./colors";
 
 const LightTooltip = withStyles((theme) => ({
@@ -27,11 +28,7 @@ const Card = ({
   const [anchorEl, setAnchorEl] = useState(null);
   const cardId = id;
 
-  const handleChangeColor = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
-
-  const handleClose = (e) => {
+  const handleCloseMenu = (e) => {
     const selectedItem = e.currentTarget.firstChild;
     try {
       const colorId = selectedItem.getAttribute("data-color");
@@ -55,6 +52,10 @@ const Card = ({
     setTimeout(function () {
       deleteCallback(cardId);
     }, 300);
+  };
+
+  const handleChangeColor = (e) => {
+    setAnchorEl(e.currentTarget);
   };
 
   return (
@@ -87,40 +88,10 @@ const Card = ({
             onClick={handleChangeColor}
             ref={cardColorButton}></button>
         </LightTooltip>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}>
-          <MenuItem onClick={handleClose}>
-            <span data-color="0" className="color gray"></span>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <span data-color="1" className="color black"></span>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <span data-color="2" className="color red"></span>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <span data-color="3" className="color orange"></span>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <span data-color="4" className="color green"></span>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <span data-color="5" className="color blue"></span>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <span data-color="6" className="color deepBlue"></span>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <span data-color="7" className="color purple"></span>
-          </MenuItem>
-          <MenuItem onClick={handleClose}>
-            <span data-color="8" className="color pink"></span>
-          </MenuItem>
-        </Menu>
+        <ColorMenu
+          elementAnchor={anchorEl}
+          menuOnCloseCallback={handleCloseMenu}
+        />
       </div>
     </div>
   );

@@ -16,21 +16,6 @@ const App = () => {
     localStorage.setItem(LOCAL_STORAGE, JSON.stringify(todo));
   }, [todo]);
 
-  const updateData = (data) => {
-    setTodos([...todo, data]);
-  };
-
-  const deleteData = (id) => {
-    const filtered = todo.filter((item) => {
-      return item.id !== id;
-    });
-    setTodos(filtered);
-  };
-
-  const clearData = (e) => {
-    setTodos([]);
-  };
-
   const updateCardColor = (key, color) => {
     todo.forEach((item) => {
       if (item.id === key) {
@@ -44,6 +29,21 @@ const App = () => {
         setTodos([...updatedTodos]);
       }
     });
+  };
+
+  const deleteData = (id) => {
+    const filtered = todo.filter((item) => {
+      return item.id !== id;
+    });
+    setTodos(filtered);
+  };
+
+  const updateData = (data) => {
+    setTodos([...todo, data]);
+  };
+
+  const clearData = (e) => {
+    setTodos([]);
   };
 
   return (
